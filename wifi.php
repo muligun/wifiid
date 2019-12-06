@@ -28,6 +28,36 @@ function pass($total){
 	return $word;
 }
 
+@system('clear');
+print "\n";
+print "$cyan      .===. (                                \n";
+print "$cyan      |   |  )  $okegreen   _      ___ ____   _    __ \n";
+print "$cyan      |   | (   $okegreen  | | /| / (_) _(_) (_)__/ / \n";
+print "$cyan      |   | )   $okegreen  | |/ |/ / / _/ / / / _  /  \n";
+print "$cyan      |   \*/   $okegreen  |__/|__/_/_//_(_)_/\_,_/   \n";
+print "$cyan    ,'    //.   $yellow      Account Generator    \n";
+print "$cyan   :~~~~~//~~;                               \n";
+print "$cyan    `.  // .'   $white https://github.com/N1ght420 \n";
+print "$cyan    `-------'                                \n\n";
+$awal = array("","9813","9812","9811","9853","9852");
+echo "$yellow ??$white Total : ";
+$total = trim(fgets(STDIN));
+echo "$yellow **$white Creating account list ... \n";
+for ($i=0; $i < $total; $i++){
+    $length = rand(13,15);
+    $randawal = array_rand($awal,3);
+    $base = $awal[$randawal[1]];
+    $user = $base.user(str_replace("-", "", strlen($base) -$length));
+    $pass = pass(3);
+    fwrite(fopen($list, "a"), "$user|$pass \n");
+}
+$file = file('list.txt');
+echo "$yellow **$white Checking list ... \n\n";
+foreach ($file as $akon => $data) {
+	$split = explode("|", $data);
+	$user = trim($split[0]);
+	$pass = trim($split[1]);
+
 $list = "list.txt";
 echo "$yellow ??$white List Akun : ";
 $filenya = trim(fgets(STDIN));
