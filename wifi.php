@@ -11,6 +11,24 @@ $red="\033[1;31m";
 $yellow="\033[1;33m";
  
 $list = "list.txt";
+function user($total){
+	$abc = "1234567890";
+	$word = "";
+	for ($i=0; $i < $total ; $i++) { 
+		$word .=$abc{rand(0,strlen($abc)-1)};
+	}
+	return $word;
+}
+function pass($total){
+	$abc = "abcdefghijklmnopqrstuvwxyz";
+	$word = "";
+	for ($i=0; $i < $total ; $i++) { 
+		$word .=$abc{rand(0,strlen($abc)-1)};
+	}
+	return $word;
+}
+
+$list = "list.txt";
 echo "$yellow ??$white List Akun : ";
 $filenya = trim(fgets(STDIN));
  
